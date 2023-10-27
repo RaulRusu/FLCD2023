@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FunCompiler.Lexer
@@ -65,7 +66,7 @@ namespace FunCompiler.Lexer
                 .ForEach(line =>
                 {
                     var tokens = DeepTokenize(line);
-                    tokens.ForEach(token => Console.Write($"{token} "));
+                    tokens.ForEach(token => Console.WriteLine($"{token} "));
                     Console.Write("\n");
                     if (false)
                     tokens.ForEach(token =>
@@ -157,6 +158,17 @@ namespace FunCompiler.Lexer
 
         private List<String> DeepTokenize(string line)
         {
+            var tokenizedLine = new List<string>();
+
+            var separatedLine = line.Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
+            
+            separatedLine.ForEach(part =>
+            {
+                tokenizedLine = RegularExpresionSplit(part, @";,()[]");
+            });
+
+            return tokenizedLine;
+
             return line
                 //Split after separators
                 .Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries)
@@ -168,6 +180,13 @@ namespace FunCompiler.Lexer
                 .SelectMany(tokens => tokens) // flaten the resulting lists
                 .ToList();
 
+        }
+
+        private List<String> RegularExpresionSplit(string input, string pattern)
+        {
+            var substrings = Regex.Split(input, pattern);
+
+            return substrings.ToList();
         }
     }
 }

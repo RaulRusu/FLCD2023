@@ -2,16 +2,16 @@
 
 start
 	declare
-        var number1 integer --- err ---
+        var 0number1 integer;
         var number2 integer;
-        product integer; --- err ---
+        var product integer;
     end-declare
     body
         read number1;
         read number2;
 
-        product = number1 * number2; --- no err ---
+        product is number1 * number2;
         
         write product;
-    --- err no endbody ---
+    end-body
 end
