@@ -16,6 +16,7 @@ namespace FunCompiler.Lexer
         private const string CORRECT = "Lexically correct";
 
         private List<string> reservedTokens;
+        private List<string> basicSeparators;
         private List<string> separators;
         private List<string> operators;
         private List<string> composedOperators;
@@ -26,6 +27,7 @@ namespace FunCompiler.Lexer
         private SymbolTable constantsSymbolTable = new SymbolTable();
 
         private string LastLogMsg = "";
+        private string tonkenString = "";
 
         public void Init()
         {
@@ -41,8 +43,11 @@ namespace FunCompiler.Lexer
             var reader = new StreamReader("tokens.in");
             var line = reader.ReadLine();
             separators = line.Split(" ").ToList();
-            separators.Add(" ");
-            separators.Add("\t");
+            basicSeparators = new List<string>
+            {
+                " ",
+                "\t"
+            };
 
             line = reader.ReadLine();
             composedOperators = line.Split(" ").ToList();
@@ -52,6 +57,9 @@ namespace FunCompiler.Lexer
 
             line = reader.ReadLine();
             reservedTokens = line.Split(" ").ToList();
+            reservedTokens.AddRange(composedOperators);
+            reservedTokens.AddRange(operators);
+            reservedTokens.AddRange(separators);
 
             reader.Close();
         }
@@ -66,14 +74,13 @@ namespace FunCompiler.Lexer
                 .ForEach(line =>
                 {
                     var tokens = DeepTokenize(line);
-                    tokens.ForEach(token => Console.WriteLine($"{token} "));
-                    Console.Write("\n");
-                    if (false)
+                    tokens.ForEach(token => { Console.WriteLine($"{token} "); tonkenString += token + "\n"; });
+
                     tokens.ForEach(token =>
                     {
                         var result = EvaluateToken(token);
 
-                        if (result == null)
+                        if (result == ERROR)
                         {
                             logMsg += "Lexical error: " + "Line - " + lineIndex.ToString() + ", Token - " + token + "\n";
                         }
@@ -86,13 +93,28 @@ namespace FunCompiler.Lexer
             {
                 LastLogMsg = CORRECT;
             }
-
-            LastLogMsg = logMsg;
+            else
+            {
+                LastLogMsg = logMsg;
+            }
         }
 
         public void Log()
         {
-            throw new NotImplementedException();
+            using var fileStream = File.Open("output.log", FileMode.Create, FileAccess.Write);
+            using var writer = new StreamWriter(fileStream);
+            writer.WriteLine(LastLogMsg);
+
+            writer.WriteLine("PIF");
+            writer.WriteLine(pif);
+
+            writer.WriteLine("Identifiers Symbol Table");
+            writer.WriteLine(identifiersSymbolTable);
+
+            writer.WriteLine("Constants Symbol Table");
+            writer.WriteLine(constantsSymbolTable);
+
+            writer.WriteLine(tonkenString);
         }
 
         private string? EvaluateToken(string token)
@@ -126,50 +148,63 @@ namespace FunCompiler.Lexer
             return null;
         }
 
+        //^[-+]?[0-9]+\.[0-9]+$
         private bool IsFloat(string token)
         {
-            throw new NotImplementedException();
+            var match = Regex.Match(token, @"^[-+]?[0-9]+\.[0-9]+$");
+            return match.Success;
         }
 
+        //^[a-zA-Z]$
         private bool IsChar(string token)
         {
-            throw new NotImplementedException();
+            var match = Regex.Match(token, @"^[a-zA-Z]$");
+            return match.Success;
         }
 
         private bool IsBool(string token)
         {
-            throw new NotImplementedException();
+            return token == "true" || token == "false";
         }
-
+        //^[-+]?[0-9]+$
         private bool IsInt(string token)
         {
-            throw new NotImplementedException();
+            var match = Regex.Match(token, @"^[-+]?[0-9]+$");
+            return match.Success;
+            
         }
 
+        //^[a-zA-Z$][a-zA-Z0-9$]*$
         private bool IsIdentifier(string token)
         {
-            throw new NotImplementedException();
+            var match = Regex.Match(token, @"^[a-zA-Z$][a-zA-Z0-9$]*$");
+            return match.Success;
         }
 
         private bool isReserved(string token)
         {
-            throw new NotImplementedException();
+            return reservedTokens.Any(reservedToken => reservedToken.Equals(token));
         }
 
         private List<String> DeepTokenize(string line)
         {
             var tokenizedLine = new List<string>();
+            tokenizedLine = line
+                .Split(basicSeparators.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
 
-            var separatedLine = line.Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
-            
-            separatedLine.ForEach(part =>
-            {
-                tokenizedLine = RegularExpresionSplit(part, @";,()[]");
-            });
+            tokenizedLine = tokenizedLine
+                .Select(part => RegularExpresionSplit(part, @"([;\(\)\[\],])"))
+                .SelectMany(element => element)
+                .ToList();
 
+            tokenizedLine = tokenizedLine
+                .Select(part => RegularExpresionSplit(part, @"(>=|>|<|!=|=|\+|\-|\*|\%|and|or)"))
+                .SelectMany(element => element)
+                .ToList();
             return tokenizedLine;
 
-            return line
+            /*return line
                 //Split after separators
                 .Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries)
                 //Split after composed operators
@@ -178,15 +213,16 @@ namespace FunCompiler.Lexer
                 //Split after simple operators
                 .Select(token => token.Split(operators.ToArray(), StringSplitOptions.RemoveEmptyEntries))
                 .SelectMany(tokens => tokens) // flaten the resulting lists
-                .ToList();
+                .ToList();*/
 
         }
 
         private List<String> RegularExpresionSplit(string input, string pattern)
         {
             var substrings = Regex.Split(input, pattern);
-
-            return substrings.ToList();
+            return substrings
+                .Where(part => part != "")
+                .ToList();
         }
     }
 }
