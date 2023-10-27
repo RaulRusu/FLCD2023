@@ -31,8 +31,28 @@ namespace FunCompiler.Lexer
             pif = new PIF();
             identifiersSymbolTable = new SymbolTable();
             constantsSymbolTable = new SymbolTable();
-            
-            //TODO: Read tokens from file
+
+            ReadTokens();
+        }
+
+        private void ReadTokens()
+        {
+            var reader = new StreamReader("tokens.in");
+            var line = reader.ReadLine();
+            separators = line.Split(" ").ToList();
+            separators.Add(" ");
+            separators.Add("\t");
+
+            line = reader.ReadLine();
+            composedOperators = line.Split(" ").ToList();
+
+            line = reader.ReadLine();
+            operators = line.Split(" ").ToList();
+
+            line = reader.ReadLine();
+            reservedTokens = line.Split(" ").ToList();
+
+            reader.Close();
         }
 
         public void Scan(string text)
@@ -45,6 +65,9 @@ namespace FunCompiler.Lexer
                 .ForEach(line =>
                 {
                     var tokens = DeepTokenize(line);
+                    tokens.ForEach(token => Console.Write($"{token} "));
+                    Console.Write("\n");
+                    if (false)
                     tokens.ForEach(token =>
                     {
                         var result = EvaluateToken(token);
@@ -98,6 +121,7 @@ namespace FunCompiler.Lexer
                 }
             }
 
+            pif.Add(tokenTypeString, tokenPosion);
             return null;
         }
 
@@ -133,7 +157,17 @@ namespace FunCompiler.Lexer
 
         private List<String> DeepTokenize(string line)
         {
-            throw new NotImplementedException();
+            return line
+                //Split after separators
+                .Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+                //Split after composed operators
+                .Select(token => token.Split(composedOperators.ToArray(), StringSplitOptions.RemoveEmptyEntries))
+                .SelectMany(tokens => tokens) // flaten the resulting lists
+                //Split after simple operators
+                .Select(token => token.Split(operators.ToArray(), StringSplitOptions.RemoveEmptyEntries))
+                .SelectMany(tokens => tokens) // flaten the resulting lists
+                .ToList();
+
         }
     }
 }

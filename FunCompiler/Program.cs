@@ -4,5 +4,5 @@ using FunCompiler.Lexer;
 Scanner scanner = new Scanner();
 scanner.Init();
 
-scanner.Scan(System.IO.File.ReadAllText(""));
-scanner.Log();
+scanner.Scan(System.IO.File.ReadAllText("p1.fun"));
+//scanner.Log();
