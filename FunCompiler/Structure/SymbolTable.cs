@@ -9,17 +9,17 @@ namespace FunCompiler
 {
     public class SymbolTable
     {
-        private HashTableCustom hashTable;
+        private HashTable hashTable;
         public int Size => hashTable.Size;
 
         public SymbolTable()
         {
-            hashTable = new HashTableCustom();
+            hashTable = new HashTable();
         }
 
         public SymbolTable(int size)
         {
-            hashTable = new HashTableCustom(size);
+            hashTable = new HashTable(size);
         }
 
         /// <summary>

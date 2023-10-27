@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace FunCompiler.DataStructers
 {
-    public class HashTableCustom
+    public class HashTable
     {
         const int DEFAULT_BUCKET_SIZE = 1000;
         private LinkedList[] buckets;
         public int Size { private set; get; }
 
-        public HashTableCustom()
+        public HashTable()
         {
             this.Size = DEFAULT_BUCKET_SIZE;
             buckets = new LinkedList[DEFAULT_BUCKET_SIZE];
         }
 
-        public HashTableCustom(int size)
+        public HashTable(int size)
         {
             this.Size = size;
             buckets = new LinkedList[size];
