@@ -1,0 +1,4 @@
+; , ( ) [ ]
+<= != =>
++ - * / % < = and or
+start end declare end-declare body end-body if  else endif for endfor while endwhile var const integer string char bool is array of true false read write
