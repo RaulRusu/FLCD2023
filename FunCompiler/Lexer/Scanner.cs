@@ -13,7 +13,7 @@ namespace FunCompiler.Lexer
     public class Scanner
     {
         private const string ERROR = "ERROR";
-        private const string CORRECT = "Lexically correct";
+        private const string CORRECT = "Lexically correct\n";
 
         private List<string> reservedTokens;
         private List<string> basicSeparators;
@@ -74,7 +74,6 @@ namespace FunCompiler.Lexer
                 .ForEach(line =>
                 {
                     var tokens = DeepTokenize(line);
-                    tokens.ForEach(token => { Console.WriteLine($"{token} "); tonkenString += token + "\n"; });
 
                     tokens.ForEach(token =>
                     {
@@ -113,8 +112,6 @@ namespace FunCompiler.Lexer
 
             writer.WriteLine("Constants Symbol Table");
             writer.WriteLine(constantsSymbolTable);
-
-            writer.WriteLine(tonkenString);
         }
 
         private string? EvaluateToken(string token)

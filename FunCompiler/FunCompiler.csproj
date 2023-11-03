@@ -11,6 +11,15 @@
     <None Update="p1.fun">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="p1err.fun">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="p2.fun">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="p3.fun">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="tokens.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

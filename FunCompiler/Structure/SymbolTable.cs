@@ -40,7 +40,7 @@ namespace FunCompiler
 
         public override string ToString()
         {
-            return hashTable.ToString();
+            return $"Hash table:\n{hashTable.ToString()}";
         }
     }
 }

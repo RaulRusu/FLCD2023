@@ -49,7 +49,10 @@ namespace FunCompiler.DataStructers
 
             var bucket = buckets[hash];
             if (buckets[hash] == null)
-                bucket = new LinkedList();
+            {
+                buckets[hash] = new LinkedList();
+                bucket = buckets[hash];
+            }
             bucket.AddLast(value);
 
             return new HashTablePosition(hash, bucket.Size - 1);
@@ -105,7 +108,7 @@ namespace FunCompiler.DataStructers
         }
         public override string ToString()
         {
-            return Bucket.ToString() + " " + Index.ToString();
+            return $"Bucket: {Bucket.ToString()} Index: {Index.ToString()}";
         }
     }
 }
