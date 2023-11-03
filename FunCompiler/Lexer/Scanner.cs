@@ -155,7 +155,7 @@ namespace FunCompiler.Lexer
         //^[a-zA-Z]$
         private bool IsChar(string token)
         {
-            var match = Regex.Match(token, @"^[a-zA-Z]$");
+            var match = Regex.Match(token, @"^[0-9a-zA-Z]$");
             return match.Success;
         }
 
@@ -171,10 +171,10 @@ namespace FunCompiler.Lexer
             
         }
 
-        //^[a-zA-Z$][a-zA-Z0-9$]*$
+        //^[a-zA-Z][a-zA-Z0-9]*$
         private bool IsIdentifier(string token)
         {
-            var match = Regex.Match(token, @"^[a-zA-Z$][a-zA-Z0-9$]*$");
+            var match = Regex.Match(token, @"^[a-zA-Z][a-zA-Z0-9]*$");
             return match.Success;
         }
 
