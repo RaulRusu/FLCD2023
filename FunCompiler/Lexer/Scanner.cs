@@ -152,7 +152,7 @@ namespace FunCompiler.Lexer
             return match.Success;
         }
 
-        //^[a-zA-Z]$
+        //^[0-9a-zA-Z]$
         private bool IsChar(string token)
         {
             var match = Regex.Match(token, @"^[0-9a-zA-Z]$");
@@ -163,6 +163,7 @@ namespace FunCompiler.Lexer
         {
             return token == "true" || token == "false";
         }
+
         //^[-+]?[0-9]+$
         private bool IsInt(string token)
         {

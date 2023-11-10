@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FunCompiler.SymbolTable">
+    <Position X="5.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAoAAkAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\SymbolTable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="hashTable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FunCompiler.DataStructers.HashTable">
+    <Position X="2.25" Y="3.75" Width="2" />
+    <Members>
+      <Method Name="hashFunction" Hidden="true" />
+    </Members>
+    <AssociationLine Name="buckets" Type="FunCompiler.DataStructers.LinkedList" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="3.75" />
+        <Point X="3.25" Y="3.375" />
+        <Point X="3.25" Y="3.375" />
+        <Point X="3.25" Y="2.69" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.109" Y="0.1" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAQAAAgAAFAAAAAAAAAAEIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataStructers\HashTable\HashTable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="buckets" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FunCompiler.DataStructers.HashTablePosition">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAIAAA=</HashCode>
+      <FileName>DataStructers\HashTable\HashTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FunCompiler.DataStructers.LinkedList">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAgQAUAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>DataStructers\LinkedList\LinkedList.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="First" />
+      <Property Name="Last" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FunCompiler.DataStructers.LinkedListNode">
+    <Position X="5" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DataStructers\LinkedList\LinkedList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FunCompiler.Lexer.Scanner">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <Members>
+      <Method Name="IsBool" Hidden="true" />
+      <Method Name="IsChar" Hidden="true" />
+      <Method Name="IsFloat" Hidden="true" />
+      <Method Name="IsIdentifier" Hidden="true" />
+      <Method Name="IsInt" Hidden="true" />
+      <Method Name="isReserved" Hidden="true" />
+      <Method Name="ReadTokens" Hidden="true" />
+      <Method Name="RegularExpresionSplit" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAQgggQBAAAABAIAAQCAAAIAgIgAAAIAAQAzAAAEABA=</HashCode>
+      <FileName>Lexer\Scanner.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="identifiersSymbolTable" />
+      <Field Name="pif" />
+      <Field Name="constantsSymbolTable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FunCompiler.Structure.PIF">
+    <Position X="11.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAEAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structure\PIF.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="tokenDictionary" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="System.Collections.Generic.List&lt;T&gt;" Collapsed="true">
+    <Position X="11.5" Y="2.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="System.Collections.Generic.List&lt;T&gt;.Enumerator" Collapsed="true">
+        <TypeIdentifier />
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
