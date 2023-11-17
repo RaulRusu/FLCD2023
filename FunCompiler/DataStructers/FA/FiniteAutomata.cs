@@ -111,7 +111,7 @@ namespace FunCompiler.DataStructers
                 }
             }
 
-            for (var i = 0; i <= sequence.Length; i++)
+            /*for (var i = 0; i <= sequence.Length; i++)
             {
 
                 for (var j = 0; j < States.Count; j++)
@@ -119,7 +119,7 @@ namespace FunCompiler.DataStructers
                     Console.Write(dp[i,j].ToString() + " ");
                 }
                 Console.WriteLine();
-            }
+            }*/
             foreach (var finalState in FinalStates)
             {
                 var index = StatesToIndexMapping[finalState];

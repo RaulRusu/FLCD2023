@@ -21,6 +21,8 @@ namespace FunCompiler.Lexer
         private List<string> operators;
         private List<string> composedOperators;
 
+        private FiniteAutomata finiteAutoamataIntConst;
+
         private PIF pif = new PIF();
 
         private SymbolTable identifiersSymbolTable = new SymbolTable();
@@ -34,7 +36,9 @@ namespace FunCompiler.Lexer
             pif = new PIF();
             identifiersSymbolTable = new SymbolTable();
             constantsSymbolTable = new SymbolTable();
-
+            finiteAutoamataIntConst = new FiniteAutomata();
+            finiteAutoamataIntConst.FromFile("intConstFA.in");
+            finiteAutoamataIntConst.Init();
             ReadTokens();
         }
 
@@ -167,6 +171,7 @@ namespace FunCompiler.Lexer
         //^[-+]?[0-9]+$
         private bool IsInt(string token)
         {
+            return finiteAutoamataIntConst.Accepts(token);
             var match = Regex.Match(token, @"^[-+]?[0-9]+$");
             return match.Success;
             
