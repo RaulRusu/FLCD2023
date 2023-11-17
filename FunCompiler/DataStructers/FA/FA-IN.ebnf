@@ -1,0 +1,15 @@
+Letter = “a” | “b” | … | “z” | “A” | “B” | … | “Z”
+Digit = “0” | “1” | … | “9”
+Sign = “-” | “+” | "_"
+Character = Letter | Digit
+Word = {Character}
+AllCharacters = Letter | Digit | Sign
+
+File = States “\n” Alphabet “\n” StartingState “\n” FinalStates “\n” Transitions
+State = Word
+Transition = {State “ ” State “ ” AllCharacters}
+States = {State “ ”}
+Alphabet = { AllCharacters “ ”}
+StartingState = State
+FinalStates = {State “ ”}
+Transitions = { Transition “\n”}

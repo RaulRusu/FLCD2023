@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="intConstFA.in">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="p1.fun">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -18,6 +21,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="p3.fun">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="simpleFA.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tokens.in">

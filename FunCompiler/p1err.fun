@@ -5,7 +5,7 @@ start
         var product integer;
     enddeclare
     body
-        read number1;
+        read numb1er1;
         read number2;
 
         product is number1 * number2;
