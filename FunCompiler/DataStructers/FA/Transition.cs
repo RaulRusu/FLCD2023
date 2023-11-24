@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FunCompiler.DataStructers.FA;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -13,14 +14,11 @@ namespace FunCompiler.DataStructers
         public string EndingState { get; set; } = string.Empty;
         public string Symbol { get; set; } = string.Empty;
 
-        public static Transition FromList(List<string> strings)
+        public static List<Transition> FromList(List<string> strings)
         {
-            return new Transition
-            {
-                StartingState = strings[0],
-                EndingState = strings[1],
-                Symbol = strings[2]
-            };
+            var generator = TransitionHelpers.FromListToTransion(strings);
+
+            return generator.ToList();
         }
     }
 }

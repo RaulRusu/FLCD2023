@@ -7,7 +7,8 @@ AllCharacters = Letter | Digit | Sign
 
 File = States “\n” Alphabet “\n” StartingState “\n” FinalStates “\n” Transitions
 State = Word
-Transition = {State “ ” State “ ” AllCharacters}
+Transition = State “ ” State “ ” Symbol
+Synbol = AllCharacters | 0...9 | 1...9 | a...z | A...Z
 States = {State “ ”}
 Alphabet = { AllCharacters “ ”}
 StartingState = State

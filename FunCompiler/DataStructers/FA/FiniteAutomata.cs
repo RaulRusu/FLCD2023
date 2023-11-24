@@ -62,7 +62,7 @@ namespace FunCompiler.DataStructers
             while (!stream.EndOfStream)
             {
                 var line = stream.ReadLine().Split(" ").ToList();
-                transitions.Add(Transition.FromList(line));
+                transitions.AddRange(Transition.FromList(line));
             }
 
             return transitions;
@@ -92,6 +92,8 @@ namespace FunCompiler.DataStructers
         {
             var dp = new bool[sequence.Length + 1, States.Count];
             var startIndex = GetIndexFromState(InitialState);
+            if (startIndex == -1)
+                return false;
             dp[0, startIndex] = true;
             for (var i = 0; i < sequence.Length; i++)
             {
@@ -120,6 +122,7 @@ namespace FunCompiler.DataStructers
                 }
                 Console.WriteLine();
             }*/
+            
             foreach (var finalState in FinalStates)
             {
                 var index = StatesToIndexMapping[finalState];

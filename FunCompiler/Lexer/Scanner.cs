@@ -22,6 +22,7 @@ namespace FunCompiler.Lexer
         private List<string> composedOperators;
 
         private FiniteAutomata finiteAutoamataIntConst;
+        private FiniteAutomata finiteAutoamataIdentifier;
 
         private PIF pif = new PIF();
 
@@ -37,8 +38,11 @@ namespace FunCompiler.Lexer
             identifiersSymbolTable = new SymbolTable();
             constantsSymbolTable = new SymbolTable();
             finiteAutoamataIntConst = new FiniteAutomata();
+            finiteAutoamataIdentifier = new FiniteAutomata();
             finiteAutoamataIntConst.FromFile("intConstFA.in");
+            finiteAutoamataIdentifier.FromFile("identifierFA.in");
             finiteAutoamataIntConst.Init();
+            finiteAutoamataIdentifier.Init();
             ReadTokens();
         }
 
@@ -180,6 +184,7 @@ namespace FunCompiler.Lexer
         //^[a-zA-Z][a-zA-Z0-9]*$
         private bool IsIdentifier(string token)
         {
+            return finiteAutoamataIdentifier.Accepts(token);
             var match = Regex.Match(token, @"^[a-zA-Z][a-zA-Z0-9]*$");
             return match.Success;
         }

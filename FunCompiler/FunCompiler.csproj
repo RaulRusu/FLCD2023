@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="identifierFA.in">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="intConstFA.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

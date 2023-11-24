@@ -6,16 +6,16 @@ using FunCompiler.Lexer;
 void RunUI()
 {
     var fa = new FiniteAutomata();
-    fa.FromFile("intConstFA.in");
+    fa.FromFile("identifierFA.in");
     fa.Init();
-    Console.WriteLine(fa.Accepts("-10131231231241123131141422323421432341242"));
+    Console.WriteLine(fa.Accepts("number1"));
 
     var ui = new FiniteAutomataUI(fa);
     ui.Run();
 
 }
 
-//RunUI();
+RunUI();
 
 
 Scanner scanner = new Scanner();
