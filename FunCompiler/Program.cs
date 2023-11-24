@@ -12,7 +12,6 @@ void RunUI()
 
     var ui = new FiniteAutomataUI(fa);
     ui.Run();
-
 }
 
 RunUI();
