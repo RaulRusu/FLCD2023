@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace FunCompiler.Lexer
 {
@@ -120,6 +121,8 @@ namespace FunCompiler.Lexer
 
             writer.WriteLine("Constants Symbol Table");
             writer.WriteLine(constantsSymbolTable);
+
+            Console.WriteLine(pif);
         }
 
         private string? EvaluateToken(string token)

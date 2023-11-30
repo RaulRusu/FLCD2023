@@ -1,5 +1,6 @@
 ﻿
 using FunCompiler.DataStructers;
+using FunCompiler.DataStructers.Grammar;
 using FunCompiler.FiniteAutoamataUI;
 using FunCompiler.Lexer;
 
@@ -14,6 +15,13 @@ void RunUI()
     ui.Run();
 }
 
+void TestProductionParser()
+{
+    var pp = new ProductionParser();
+    pp.ParseProductionString(@"abc -> abc | bcs");
+}
+
+TestProductionParser();
 RunUI();
 
 
