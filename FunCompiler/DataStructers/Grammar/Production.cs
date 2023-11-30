@@ -38,6 +38,7 @@ namespace FunCompiler.DataStructers.Grammar
             {
                 Value = values.Select(value => ProductionString.FromTuple(value)).ToList()
             };
+
             
         }
     }
