@@ -5,12 +5,6 @@ start
         var product integer;
     enddeclare
     body
-        read number1;
-        read number2;
-        product is 1231;
-
-        product is number1>=number2;
-        product is number1>number2;
-        write product;
+        number1 is 1;
     endbody
 end

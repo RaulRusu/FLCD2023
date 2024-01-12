@@ -1,42 +1,41 @@
 program
 program -> "start" declarePart programBody "end"
 
-declarePart -> "declare" declareList "end-declare"
-declareList -> declaration ";" declaration ";" declareList
+declarePart -> "declare" declareList "enddeclare"
+declareList -> declaration ";" | declaration ";" declareList
 
 declaration -> simpeDeclaration | assignDeclaration | constDeclaration 
-simpeDeclaration -> "var" IDENTIFIER type
-assignDeclaration -> "var" IDENTIFIER type "is" CONST
-constDeclaration -> "const" IDENTIFIER type "is" CONST
+simpeDeclaration -> "var" "0" type
+assignDeclaration -> "var" "0" type "is" "1"
+constDeclaration -> "const" "0" type "is" "1"
 
 type -> simpleType | arrayType
 simpleType -> "integer" | "bool" | "char" | "string"
-arrayType -> "array" "of" simpleType NUMBER
+arrayType -> "array" "of" simpleType "1"
 
-programBody -> "body" compoundStatement "end-body"
+programBody -> "body" compoundStatement "endbody"
 
 compoundStatement -> statementList
 statementList -> statement | statement statementList
 statement -> simpleStatement | structStatment
 
 simpleStatement -> assignStatement | ioStatement 
-assignStatement -> IDENTIFIER "is" expression ";"
+assignStatement -> "0" "is" expression ";"
 ioStatement -> ioExpr expression ";"
 ioExpr -> "read" | "write"
 
 structStatment -> ifStatement | whileStatement | forStatement
 
-ifStatement -> "if" "(" condition ")" compoundStatement elseBranch "endif"
-elseBranch -> "else" compoundStatement | /E
+ifStatement -> "if" "(" condition ")" compoundStatement "endif" | "if" "(" condition ")" compoundStatement "else" compoundStatement "endif"
+
 whileStatement -> "while" "(" condition ")" compoundStatement "endwhile"
-forStatement -> "for" IDENTIFIER "("expression "," expression "," expression")" compoundStatement "endfor"
+forStatement -> "for" "0" "("expression "," expression "," expression")" compoundStatement "endfor"
 
 expression -> expression basicOperators term | term
 basicOperators -> "+" | "-"
 term -> term multiplyOperators factor | factor
 multiplyOperators -> "*" | "//" | "%"
-factor -> "(" expression ")" | IDENTIFIER
+factor -> "(" expression ")" | "0" | "1" 
 
 condition -> expression RELATION expression
 RELATION -> "<" | "<=" | "=" | "!=" | ">=" | ">" | "and" | "or"
-WS -> " " | "\n"

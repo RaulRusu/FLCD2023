@@ -31,7 +31,7 @@ namespace FunCompiler.DataStructers.Grammar.ContextFreeGrammar
             grammar.StartSymbol = generalGrammar.StartSymbol;
             grammar.Productions = ProductionRules.FromGeneralProdcutionRules(generalGrammar.Productions);
 
-            grammar.Productions.Productions.ForEach(prod => Console.WriteLine(prod));
+            //grammar.Productions.Productions.ForEach(prod => Console.WriteLine(prod));
 
             return grammar;
         }
@@ -67,7 +67,8 @@ namespace FunCompiler.DataStructers.Grammar.ContextFreeGrammar
 
         public override string ToString()
         {
-            return $"NonTerminal: {GetNonTerminalString()}\nTerminal {GetNonTerminalString()}\n{GetProductionsString()}";
+            //}
+            return $"NonTerminal: {GetNonTerminalString()}\nTerminal {GetTerminalString()}\n Productions \n{GetProductionsString()}";
         }
     }
 }

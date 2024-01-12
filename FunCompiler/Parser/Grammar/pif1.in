@@ -1,0 +1,22 @@
+start null
+declare null
+var null
+0 Bucket: 823 Index: 0
+integer null
+; null
+var null
+0 Bucket: 824 Index: 0
+integer null
+; null
+var null
+0 Bucket: 294 Index: 0
+integer null
+; null
+enddeclare null
+body null
+0 Bucket: 823 Index: 0
+is null
+1 Bucket: 622 Index: 0
+; null
+endbody null
+end null

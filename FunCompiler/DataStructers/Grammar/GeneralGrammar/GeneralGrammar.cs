@@ -61,13 +61,6 @@ namespace FunCompiler.DataStructers.Grammar
             var grammar = new GeneralGrammar();
 
             var line = fileStream.ReadLine();
-
-            grammar.NonTerminals = SimpleLineToList(line, " ");
-
-            line = fileStream.ReadLine();
-            grammar.Terminals = SimpleLineToList(line, " ");
-
-            line = fileStream.ReadLine();
             grammar.StartSymbol = line;
 
             grammar.Productions = GeneralProductionRules.FromFileStream(fileStream);

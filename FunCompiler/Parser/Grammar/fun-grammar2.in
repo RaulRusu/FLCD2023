@@ -1,0 +1,22 @@
+program
+program -> "start" declarePart programBody "end"
+
+declarePart -> "declare" declareList "enddeclare"
+declareList -> declaration ";" | declaration ";" declareList
+
+declaration -> simpeDeclaration 
+simpeDeclaration -> "var" "0" type
+
+type -> simpleType
+simpleType -> "integer" | "bool" | "char" | "string"
+
+programBody -> "body" compoundStatement "endbody"
+
+compoundStatement -> statementList
+statementList -> statement | statement statementList
+statement -> simpleStatement 
+
+simpleStatement -> assignStatement  
+assignStatement -> "0" "is" expression ";"
+
+expression -> "1"

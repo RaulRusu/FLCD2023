@@ -16,7 +16,7 @@ namespace FunCompiler.DataStructers.Grammar
 
     public class ProductionString
     {
-        private static readonly char Epsilon = Convert.ToChar(201);
+        public static readonly char Epsilon = Convert.ToChar(201);
 
         public string Value = string.Empty;
         public SymbolType Type = SymbolType.Unkown;
@@ -53,7 +53,6 @@ namespace FunCompiler.DataStructers.Grammar
     public class ProductionPart
     {
         public List<ProductionString> Value = new List<ProductionString>();
-        public int Index { get; set; } = 0;
 
         public ProductionPart() { }
 
