@@ -40,10 +40,10 @@ namespace FunCompiler.DataStructers.Grammar
             }
         }
 
-        public string Input = string.Empty;
-        public char EnterTerminal = char.MinValue;
-        public char EscapeChar = char.MinValue;
-        public Dictionary<char, char> SpecialToNormalMap = new Dictionary<char, char>();
+        public string Input { get; set; } = string.Empty;
+        public char EnterTerminal { get; set; } = char.MinValue;
+        public char EscapeChar { get; set; } = char.MinValue;
+        public Dictionary<char, char> SpecialToNormalMap { get; set; } = new Dictionary<char, char>();
 
         private int currentIndex = 0;
         private string workingStr = string.Empty;
@@ -62,38 +62,31 @@ namespace FunCompiler.DataStructers.Grammar
             Input = string.Empty;
         }
 
-        private bool sequenceEqual(string str, int offset, string sequence)
-        {
-            if (offset + sequence.Length > str.Length)
-                return false;
-
-            for (var index = 0; index < sequence.Length; index++)
-            {
-                if (str[offset + index] != sequence[index])
-                    return false;
-            }
-
-            return true;
-        }
-
-        private bool isWhiteSpace(char ch)
+        private bool IsWhiteSpace(char ch)
         {
             return ch == ' ';
         }
 
-        private bool isEnterChar(char ch)
+        private bool IsEnterChar(char ch)
         {
             return ch == EnterTerminal;
         }
 
-        private bool isEndChar(char ch)
+        private bool IsEndChar(char ch)
         {
-            return isWhiteSpace(ch) || isEnterChar(ch);
+            return IsWhiteSpace(ch) || IsEnterChar(ch);
         }
 
-        private bool isEscapeChar(char ch)
+        private bool IsEscapeChar(char ch)
         {
             return ch == EscapeChar;
+        }
+
+        private bool IsEndOfSymbol(char ch)
+        {
+            if (type == 1)
+                return IsEnterChar(ch);
+            return IsWhiteSpace(ch);
         }
 
         private bool endOfString => currentIndex >= workingStr.Length;
@@ -112,9 +105,20 @@ namespace FunCompiler.DataStructers.Grammar
             currentChar = workingStr[currentIndex];
         }
 
-        private void DoUntilInsideSymbol()
+        private void SkipEnterChar()
         {
-            while (!endOfString && isWhiteSpace(currentChar))
+            if (!IsEnterChar(currentChar))
+                return;
+
+            next();
+        }
+
+        private void DoWhileOutsideSymbol()
+        {
+            if (state.CurrentState != ParserState.State.Outside)
+                return;
+
+            while (!endOfString && IsWhiteSpace(currentChar))
             {
                 next();
             }
@@ -124,7 +128,7 @@ namespace FunCompiler.DataStructers.Grammar
                 return;
             }
 
-            type = isEnterChar(currentChar) ? 1 : 0;
+            type = IsEnterChar(currentChar) ? 1 : 0;
             if (type == 1)
             {
                 next();
@@ -135,17 +139,29 @@ namespace FunCompiler.DataStructers.Grammar
         private string BuildSymbol()
         {
             var strBuilder = new StringBuilder();
-            while (!endOfString && !isEndChar(currentChar))
+            while (!endOfString && !IsEndOfSymbol(currentChar))
             {
-                if (isEscapeChar(currentChar))
+                var nextCharToAdd = currentChar;
+                if (IsEscapeChar(currentChar))
                 {
                     next();
 
                     if (state.IsEnd())
                         throw new Exception($"Escape char at end of {workingStr}");
+
+                    if (currentChar == 'E')
+                    {
+                        nextCharToAdd = 'E';
+                        type = 2;
+                    }
                 }
-                strBuilder.Append(currentChar);
+                strBuilder.Append(nextCharToAdd);
                 next();
+            }
+
+            if (type == 1)
+            {
+                SkipEnterChar();
             }
 
             if (!endOfString)
@@ -154,17 +170,34 @@ namespace FunCompiler.DataStructers.Grammar
             return strBuilder.ToString();
         }
 
+        private void SetInitialState()
+        {
+            if (IsWhiteSpace(currentChar))
+            {
+                state.ToState(ParserState.State.Outside);
+                return;
+            }
+
+            type = IsEnterChar(currentChar) ? 1 : 0;
+            if (type == 1)
+            {
+                SkipEnterChar();
+            }
+
+            state.ToState(ParserState.State.Inside);
+        }
+
         private void StartParse(string str)
         {
             workingStr = str;
             currentIndex = 0;
             currentChar = str[currentIndex];
-            state.ToState(ParserState.State.Start);
+            SetInitialState();
         }
 
         private (string, int) GetNextSymbol()
         {
-            DoUntilInsideSymbol();
+            DoWhileOutsideSymbol();
             var symbol = BuildSymbol();
             return (symbol, type);
         }

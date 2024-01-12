@@ -1,0 +1,42 @@
+program
+program -> "start" declarePart programBody "end"
+
+declarePart -> "declare" declareList "end-declare"
+declareList -> declaration ";" declaration ";" declareList
+
+declaration -> simpeDeclaration | assignDeclaration | constDeclaration 
+simpeDeclaration -> "var" IDENTIFIER type
+assignDeclaration -> "var" IDENTIFIER type "is" CONST
+constDeclaration -> "const" IDENTIFIER type "is" CONST
+
+type -> simpleType | arrayType
+simpleType -> "integer" | "bool" | "char" | "string"
+arrayType -> "array" "of" simpleType NUMBER
+
+programBody -> "body" compoundStatement "end-body"
+
+compoundStatement -> statementList
+statementList -> statement | statement statementList
+statement -> simpleStatement | structStatment
+
+simpleStatement -> assignStatement | ioStatement 
+assignStatement -> IDENTIFIER "is" expression ";"
+ioStatement -> ioExpr expression ";"
+ioExpr -> "read" | "write"
+
+structStatment -> ifStatement | whileStatement | forStatement
+
+ifStatement -> "if" "(" condition ")" compoundStatement elseBranch "endif"
+elseBranch -> "else" compoundStatement | /E
+whileStatement -> "while" "(" condition ")" compoundStatement "endwhile"
+forStatement -> "for" IDENTIFIER "("expression "," expression "," expression")" compoundStatement "endfor"
+
+expression -> expression basicOperators term | term
+basicOperators -> "+" | "-"
+term -> term multiplyOperators factor | factor
+multiplyOperators -> "*" | "//" | "%"
+factor -> "(" expression ")" | IDENTIFIER
+
+condition -> expression RELATION expression
+RELATION -> "<" | "<=" | "=" | "!=" | ">=" | ">" | "and" | "or"
+WS -> " " | "\n"

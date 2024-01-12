@@ -26,6 +26,12 @@
     <None Update="p3.fun">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Parser\Grammar\fun-grammar.in">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Parser\Grammar\grammar.in">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="simpleFA.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

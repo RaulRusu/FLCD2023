@@ -50,7 +50,7 @@ namespace FunCompiler.DataStructers.Grammar
         }
 
         // abc "a" -> asd "asda asdas `" sadada " //" asd | asd asd asd 
-        public List<Production> ParseProductionString(string input)
+        public List<GeneralProduction> ParseProductionString(string input)
         {
             var parserContext = createContext(input);
 
@@ -65,8 +65,9 @@ namespace FunCompiler.DataStructers.Grammar
             var leftProductionPart = ParseLeft(parserContext, lhsString);
 
             var rightParts = ParseRight(parserContext, rhsString);
+            var list = rightParts.ToList();
             return rightParts
-                .Select(rightProductionPart => new Production
+                .Select(rightProductionPart => new GeneralProduction
                 {
                     LeftSide = leftProductionPart,
                     RightSide = rightProductionPart
